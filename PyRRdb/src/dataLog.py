@@ -10,13 +10,13 @@ Initialize Data logger
 '''
 def init():
     global WRITING, READING, STEP, BUFF, INDEX, BUFF_SIZE, INCLUDE_TIME
-    WRITING = False
+    WRITING = False 
     READING = False
-    STEP = 1
-    INDEX = 0
-    BUFF_SIZE = 7
-    BUFF=[None] * BUFF_SIZE
-    INCLUDE_TIME = False
+    STEP = 1                #step size for deciding what the next index will be
+    INDEX = 0               #current index in buffer
+    BUFF_SIZE = 7           #size of buffer
+    BUFF=[None] * BUFF_SIZE #buffer initialization
+    INCLUDE_TIME = False    #include time-stamp or not
     return
 
 
@@ -27,24 +27,24 @@ def write(data):
     global INCLUDE_TIME, WRITING, READING, STEP, BUFF, INDEX, BUFF_SIZE
     if not READING:
         WRITING = True 
-        #include the time-stamp or not in the list
+        
         if INCLUDE_TIME: 
-            BUFF[INDEX] = [time.time(), data]
+            BUFF[INDEX] = [time.time(), data]    #include the time-stamp 
         else:
-            BUFF[INDEX] = [data]
+            BUFF[INDEX] = [data]                 #don't include time-stamp
             
-        if (INDEX + STEP >= BUFF_SIZE):
-            INDEX = ((INDEX + STEP) % BUFF_SIZE)           
-            STEP = ((STEP)%(BUFF_SIZE))+1
+        if (INDEX + STEP >= BUFF_SIZE):          #if end of the buffer is reached 
+            INDEX = ((INDEX + STEP) % BUFF_SIZE) #reset index         
+            STEP = ((STEP)%(BUFF_SIZE))+1        #increment step (no larger than buffer size)
         else:
-            INDEX += STEP
+            INDEX += STEP                        #otherwise increase to next index
        
-    WRITING = False
+    WRITING = False                              #done writing
     return
 
 '''
 Read: 
-read contents of BUFF in order
+read contents of BUFF in order -----NOT DONE
 '''
 def read():
     global WRITING, READING, STEP, BUFF, INDEX, BUFF_SIZE
@@ -55,7 +55,7 @@ def read():
     return
 
 '''
-Print Buffer Contents
+Print Buffer Contents -FOR DEBUG USE ONLY
 '''
 def printBuff():
     global WRITING, READING, STEP, BUFF, INDEX, BUFF_SIZE
@@ -64,9 +64,9 @@ def printBuff():
     print 'INDEX: ' + str(INDEX)
     return
 
-#'''
-#Main:
-#'''
+'''
+Main:
+'''
 def main():
     global WRITING, READING, STEP, BUFF, INDEX, BUFF_SIZE
     init()
