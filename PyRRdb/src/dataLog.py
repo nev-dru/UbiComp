@@ -23,13 +23,13 @@ def init():
 '''
 Write:
 '''
-def write(time, data):
+def write(data):
     global INCLUDE_TIME, WRITING, READING, STEP, BUFF, INDEX, BUFF_SIZE
     if not READING:
         WRITING = True 
         #include the time-stamp or not in the list
         if INCLUDE_TIME: 
-            BUFF[INDEX] = [time, data]
+            BUFF[INDEX] = [time.time(), data]
         else:
             BUFF[INDEX] = [data]
             
@@ -54,18 +54,6 @@ def read():
     READING = False
     return
 
-def test(numl):
-    numl.append(8)
-    print numl
-
-
-'''
-Check if buffer is full:
-'''
-def buffCheck():
-    return
-
-
 '''
 Print Buffer Contents
 '''
@@ -85,7 +73,7 @@ def main():
     
     for n in range(0,20):
 #        print 'n: ' + str(n)
-        write(n,n)
+        write(n)
         printBuff()    
     return
 
